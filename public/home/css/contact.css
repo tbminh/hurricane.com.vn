@@ -1,0 +1,117 @@
+/*
+Template Name:Clientele
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+
+
+/********************* exercise ****************/
+#exercise{ 
+ padding-top:50px;
+ padding-bottom:50px;
+ }
+.exercise_1 h2 {
+ font-size: 30px;
+ font-weight: bold;
+ color: #000;
+}
+.exercise_1 p {
+ border-bottom:1px solid #f1f1f1;
+}
+.exercise_2 i{
+ font-size:18px;
+ color:#000;
+ padding-bottom:10px;
+ padding-right:15px;
+}
+.exercise_2 p{
+ font-size:18px;
+ color: #54595f;
+ padding-bottom:10px;
+}
+.exercise_2 p a{
+ font-size:18px;
+ color: #54595f;
+}
+.exercise_2 p a:hover{
+ color: #000;
+}
+.exercise_3 h2 {
+ font-size: 30px;
+ font-weight: bold;
+ color: #000;
+}
+.exercise_4 input {
+ padding-top: 20px;
+ padding-bottom: 20px;
+ margin-bottom: 10px;
+ width: 98%;
+ border-bottom:1px solid #999!important;
+}
+.exercise_5 textarea {
+    height: 155px;
+    width: 100%;
+	border-bottom:1px solid #999!important;
+}
+#exercise .form-control{ 
+ border:none;
+ -webkit-box-shadow:none;
+ box-shadow:none;
+ -webkit-transition:none;
+ transition:none;
+ font-size:18px;
+ }
+.exercise_6 p{
+ padding-top:30px;
+}
+/********************* exercise_end ****************/
+
+
+
+
+
+@media screen and (max-width : 767px){
+#exercise {
+ padding-top: 20px;
+ padding-bottom: 20px;
+ text-align: center;
+}
+}
+
+@media (min-width:470px) and (max-width:767px) {
+	
+} 
+
+@media (min-width:768px) and (max-width:960px) { 
+.exercise_1 p {
+ font-size: 16px;
+}
+.exercise_2 p {
+ font-size: 16px;
+ padding-bottom: 0px;
+}
+#exercise {
+ padding-top: 20px;
+ padding-bottom: 20px;
+}
+} 
+ 
+@media (min-width:961px) and (max-width:1200px) {
+.exercise_1 p {
+ font-size: 16px;
+}
+.exercise_2 p {
+ font-size: 16px;
+ padding-bottom: 0px;
+}
+#exercise {
+ padding-top: 20px;
+ padding-bottom: 20px;
+}
+}
+
+@media (min-width:1201px) and (max-width:1320px) {
+
+}

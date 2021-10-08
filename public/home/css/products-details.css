@@ -1,0 +1,312 @@
+/*
+Template Name:Burger
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+
+
+/********************* products ****************/
+#products{ 
+ padding-top:30px;
+ padding-bottom:30px;
+ background-color: #F8F8F8;
+ } 
+.products_1{ 
+ text-align:center;
+ border-bottom: 1px solid #e0e0e0;
+ padding-bottom:15px;
+ }
+/********************* products_end ****************/
+/********************* choose ****************/
+#choose{ 
+ padding-top:50px;
+ padding-bottom:50px;
+ }
+.choose_2 {
+ text-align: center;
+ padding: 20px;
+ border: 1px solid rgb(197, 28, 10);
+ border-radius: 7px;
+ box-shadow: rgba(232, 8, 8, 0.15) 0px 4px 4px 0px;
+}
+.choose_2 p{ 
+ padding-top:10px;
+ }
+/********************* choose_end ****************/
+/********************* natural ****************/
+#natural{ 
+ padding-top:10px;
+ padding-bottom:50px;
+ }
+.natural_1{ 
+ text-align:center;
+ padding-bottom:10px;
+ }
+.natural_2{ 
+ text-align:center;
+ }
+.natural_2 ul {
+ padding-top:15px;
+ padding-bottom:10px;
+}
+.natural_2 li i {
+ font-size:20px;
+ color: #c51c0a;
+}
+.natural_2 li i:hover {
+ color: rgb(170, 148, 39);
+}
+.natural_2 h4 {
+ font-weight:bold;
+ padding-bottom:5px;
+}
+.natural_2 p {
+ padding-bottom:0px;
+}
+.natural_2 {
+ padding: 25px;
+ border: 1px solid rgb(197, 28, 10);
+ border-radius: 7px;
+ box-shadow: rgba(204, 14, 14, 0.15) 0px 4px 4px 0px;
+}
+/********************* natural_end ****************/
+/********************* people ****************/
+#people{ 
+ padding-top:10px;
+ padding-bottom:50px;
+ }
+#people .ih-item {
+  position: relative;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+#people .ih-item * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#people .ih-item a {
+  color: #333;
+}
+#people .ih-item a:hover {
+  text-decoration: none;
+}
+#people .ih-item img {
+  width: 100%;
+  height: 100%;
+}
+#people .ih-item.square {
+  position: relative;
+  width: 650px;
+  height: 587px;
+  border: 8px solid #fff;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+#people .ih-item.square .info {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+#people .ih-item.square.effect14.colored .info {
+  background: #1a4a72;
+}
+#people .ih-item.square.effect14.colored .info h3 {
+  background: rgba(12, 34, 52, 0.6);
+}
+#people .ih-item.square.effect14 .img {
+  opacity: 1;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+#people .ih-item.square.effect14 .info {
+  background: #333333;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transition: all 0.35s ease 0.2s;
+  -moz-transition: all 0.35s ease 0.2s;
+  transition: all 0.35s ease 0.2s;
+}
+#people .ih-item.square.effect14 .info h3 {
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  font-size: 17px;
+  padding: 10px;
+  background: #111111;
+  margin: 30px 0 0 0;
+}
+#people .ih-item.square.effect14 .info p {
+  font-style: italic;
+  font-size: 25px;
+  position: relative;
+  color: #bbb;
+  padding: 20px 20px 20px;
+  text-align: center;
+}
+#people .ih-item.square.effect14 a:hover .img {
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  transform: scale(0.5);
+}
+#people .ih-item.square.effect14 a:hover .info {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+}
+#people .ih-item.square.effect14.top_to_bottom .img {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+#people .ih-item.square.effect14.top_to_bottom a:hover .img {
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  -o-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+/********************* people_end ****************/
+/********************* products_main ****************/
+#products_main{
+ padding-top:30px;
+ padding-bottom:30px;
+ box-shadow: rgba(232, 8, 8, 0.15) 0px 4px 4px 0px; 
+ }
+.products_main_1 h2{
+ color: #c51c0a;
+ font-weight: bold;
+ padding-bottom:16px;
+ }
+/********************* products_main_end ****************/
+
+
+
+
+@media screen and (max-width : 767px){
+.products_1 h2{
+ font-size:30px;
+}
+#products_main {
+ text-align: center;
+}
+.products_main_1 h2 {
+ font-size: 36px;
+}
+.choose_2 {
+ margin-bottom: 10px;
+}
+#choose {
+ padding-top: 20px;
+ padding-bottom: 10px;
+}
+.natural_1 h2{ 
+ font-size:30px;
+}
+.natural_2 {
+ margin-bottom: 10px;
+}
+#natural {
+ padding-bottom: 0px;
+}
+#people .ih-item.square {
+ width: 100%;
+ height: 100%;
+}
+#people .ih-item.square.effect14 .info p {
+ font-size: 9px;
+}
+#people {
+ padding-bottom: 20px;
+}
+}
+
+@media (min-width:470px) and (max-width:767px) {
+	
+} 
+
+@media (min-width:768px) and (max-width:960px) { 
+#people .ih-item.square {
+ width: 100%;
+ height: 100%;
+}
+#people .ih-item.square.effect14 .info p {
+ font-size: 13px;
+}
+.products_main_1 h2 {
+ padding-bottom: 10px;
+ font-size: 25px;
+}
+.products_main_1 p {
+ font-size: 16px;
+}
+.choose_2 {
+ margin-bottom: 10px;
+}
+#choose {
+ padding-bottom: 10px;
+}
+.natural_2 {
+ margin-bottom: 10px;
+}
+} 
+ 
+@media (min-width:961px) and (max-width:1200px) {
+#people .ih-item.square {
+ width: 100%;
+ height: 100%;
+}
+#people .ih-item.square.effect14 .info p {
+ font-size: 13px;
+}
+.products_main_1 h2 {
+ padding-bottom: 10px;
+ font-size: 25px;
+}
+.products_main_1 p {
+ font-size: 16px;
+}
+.choose_2 {
+ margin-bottom: 10px;
+}
+#choose {
+ padding-bottom: 10px;
+}
+.natural_2 {
+ margin-bottom: 10px;
+}
+}
+
+@media (min-width:1201px) and (max-width:1320px) {
+#people .ih-item.square {
+ width: 100%;
+ height: 100%;
+}
+#people .ih-item.square.effect14 .info p {
+ font-size: 24px;
+}
+}
