@@ -22,7 +22,7 @@
      </div>
     </div>
    </section>
-   <section id="middle" class="clearfix">
+   {{-- <section id="middle" class="clearfix">
      <div class="col-sm-12 space_all">
                    <div id="Carousel" class="carousel slide">                
                    <ol class="carousel-indicators">
@@ -83,7 +83,7 @@
                    </div><!--.carousel-inner-->
                    </div><!--.Carousel-->               
            </div>
-   </section>
+   </section> --}}
    <section id="Spicy" class="clearfix"> 
       <div class="col-sm-6">
        <div class="Spicy_2">
@@ -149,7 +149,7 @@
       </div>
      </div>
     </div>
-   </section>
+</section>
    {{-- Thông báo đăng nhập thành công --}}
    @if(session()->has('message1'))
         <script>

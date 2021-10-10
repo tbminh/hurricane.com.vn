@@ -77,12 +77,12 @@
    	<nav class="navbar navbar-default">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-		<button type="button" style="padding-bottom:5px; margin-bottom: 15px; padding-right:10px" class="navbar-toggle" data-toggle="collapse" data-target="#dropdown-thumbnail-preview">
+		{{-- <button type="button" style="padding-bottom:5px; margin-bottom: 15px; padding-right:10px" class="navbar-toggle" data-toggle="collapse" data-target="#dropdown-thumbnail-preview">
 			<span class="sr-only">Toggle navigation</span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
-		</button>
+		</button> --}}
 		<style>
 				.navbar-nav1  {
 				  list-style-type: none;
@@ -115,8 +115,8 @@
 
 @yield('content')
 
-<section id="footer" class="clearfix">
-  <div class="col-sm-12 space_all">
+<section id="footer" class="clearfix" >
+  <div class="col-sm-12 space_all"style="display: flex;">
   <div class="col-sm-3">
     <div class="footer_1">
 	 <h4>SEMPER</h4>
