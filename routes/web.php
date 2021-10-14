@@ -42,28 +42,23 @@ Route::get('page-checkout/{id_user}','HomeController@page_checkout');
 //Hàm thanh toán đơn hàng
 Route::post('checkout-payment/{id_user}','HomeController@checkout_payment');
 
-
-
-
 //=========ORDER TABLE ==========//
-//Trang đặt bàn
-Route::get('page-table','HomeController@page_table');
-//Trang table_cart
-Route::get('page-table-cart/{id_table}','HomeController@page_table_cart');
-//Trang table_category
-Route::get('page-table-category/{id_table}','HomeController@page_table_category');
-//Trang table-product
-Route::get('page-table-product/{id_category}/{id_table}','HomeController@page_table_product');
-//Hàm thêm sản phẩm vào table-cart
-Route::get('add-table-cart/{id_product}/{id_table}','HomeController@add_table_cart');
-//Hàm xóa sản phẩm trong table
-Route::get('delete-product-tc/{id_tc}','HomeController@delete_product_tc');
-//Hàm xóa table cart
-Route::get('cancel-table-cart/{id_table}','HomeController@cancel_table_cart');
-//Hàm thanh toán hóa đơn
-Route::post('post-table-cart/{id_table}','HomeController@post_table_cart');
-
-
+// //Trang đặt bàn
+// Route::get('page-table','HomeController@page_table');
+// //Trang table_cart
+// Route::get('page-table-cart/{id_table}','HomeController@page_table_cart');
+// //Trang table_category
+// Route::get('page-table-category/{id_table}','HomeController@page_table_category');
+// //Trang table-product
+// Route::get('page-table-product/{id_category}/{id_table}','HomeController@page_table_product');
+// //Hàm thêm sản phẩm vào table-cart
+// Route::get('add-table-cart/{id_product}/{id_table}','HomeController@add_table_cart');
+// //Hàm xóa sản phẩm trong table
+// Route::get('delete-product-tc/{id_tc}','HomeController@delete_product_tc');
+// //Hàm xóa table cart
+// Route::get('cancel-table-cart/{id_table}','HomeController@cancel_table_cart');
+// //Hàm thanh toán hóa đơn
+// Route::post('post-table-cart/{id_table}','HomeController@post_table_cart');
 
 //======THÔNG TIN KHÁCH HÀNG ======//
 //Trang hồ sơ cá nhân khách hàng
@@ -84,19 +79,23 @@ Route::get('page-complete/{id_user}', 'HomeController@page_complete');
 Route::get('page-cancelled/{id_user}', 'HomeController@page_cancelled');
 
 
+
+//=============================
+//============================
+
+//==========CHECK ĐĂNG NHẬP CHO ADMIN =========//
+//Trang đăng nhập
+Route::get('login-admin','AdminController@login_admin');
+//Hàm kiểm tra đăng nhập quản trị viên
+Route::post('check-login','AdminController@check_login');
+//Hàm đăng xuất
+Route::get('logout-admin','AdminController@logout_admin');
+
 //============================================== ADMIN ================================================//
 // Route::middleware([CheckLogin::class])->group(function () {
 
     //Trang admin
     Route::get('page-admin','AdminController@page_admin');
-    //Trang đăng nhập
-    Route::get('login-admin', function () {
-        return view('admin.login_admin');
-    });
-    //Hàm kiểm tra đăng nhập quản trị viên
-    Route::post('check-login','AdminController@check_login');
-    //Hàm đăng xuất
-    Route::get('logout-admin','AdminController@logout_admin');
 
     //=======QUẢN LÝ HỒ SƠ QUẢN TRỊ VIÊN - NHÂN VIÊN =================//
     //Hiển thị profile admin
@@ -111,6 +110,7 @@ Route::get('page-cancelled/{id_user}', 'HomeController@page_cancelled');
     //=====QUẢN LÝ QUYỀN TRUY CẬP ====//
     //Trang role_access
     Route::get('page-role-access','AdminController@page_role_access');
+    
     //Hàm thêm quyền truy cập
     Route::post('post-add-role-access','AdminController@post_add_role_access');
     //Trang thay đổi quyền truy cập
@@ -187,7 +187,19 @@ Route::get('page-cancelled/{id_user}', 'HomeController@page_cancelled');
 
     Route::post('search','HomeController@search');
 
-    Route::post('load-cate/{id_cate}','AdminController@load_cate');
-
     Route::get('update-cart', 'AdminController@getUpdateUnit')->name('getUpdateUnit');
-// });
+    // });
+
+//===================QUẢN LÝ ĐẶT BÀN- CHỌN MÓN =================//
+
+    //Trang chọn bàn
+    Route::get('table-manage/{id_area}','TableController@table_manage');
+
+    //Trang chọn món
+    Route::get('table-menu/{id_table}/{id_cate}','TableController@table_menu');
+
+    //Thêm product và table và table-cart
+    Route::get('add-table-cart/{id_table}/{id_product}','TableController@add_table_cart');
+
+    //Hàm thanh toán table
+    Route::post('checkout-table/{id-table}','TableController@checkout_table');

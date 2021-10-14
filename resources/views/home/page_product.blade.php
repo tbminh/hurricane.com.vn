@@ -101,7 +101,7 @@
     <div class="product-list">
         <ul class="items">
             <li>
-                <div class="content">
+                <div class="row">
                     @foreach ($show_products as $show_product)
                         <div class="col-md-3">
                             <div class="pro">

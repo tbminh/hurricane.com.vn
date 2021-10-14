@@ -86,7 +86,7 @@
                                     </thead>
                                     <?php $total_price = 0; ?>
                                     @foreach ($show_carts as $key => $data)
-                                    @php($get_product = DB::table('products')->where('id', $data->product_id)->first())
+                                        @php($get_product = DB::table('products')->where('id', $data->product_id)->first())
                                         <tbody>
                                                 <tr>
                                                     <td><span>{{ ++$key }}</span></td>

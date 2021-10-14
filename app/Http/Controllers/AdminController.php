@@ -30,6 +30,11 @@ class AdminController extends Controller
         }
     }
 
+    //Trang đăng nhập quản trị viên
+    public function login_admin(){
+        return view('admin.login_admin');
+    }
+
     //Hàm kiểm tra đăng nhập
     public function check_login(Request $request){
         $name = $request->input('name');
@@ -326,7 +331,6 @@ class AdminController extends Controller
         // $add_pro_sup->supplier_id= $request->input('inputSupplierId');
         // $add_pro_sup->save();
 
-
         return redirect('page-list-product')->with('message1','');
     }
 
@@ -475,61 +479,5 @@ class AdminController extends Controller
         return view('admin.order_manage.export_order',['show_export'=>$show_export]);
     }
 
-    //Trang đặt bàn
-    public function admin_table($id_area){
-        $show_areas = DB::table('table_area')->get();
-        if($id_area == 0){
-            $show_tables = DB::table('tables')->get();
-        } else{
-            $show_tables = DB::table('tables')->where('area_id',$id_area)->latest()->paginate(32);
-        }
-        
-        
-        return view('admin.table_manage.admin_table',[
-            'show_areas'=>$show_areas,
-            'show_tables'=>$show_tables
-        ]);
-    }
-
-    //Trang thực đơn
-    public function admin_menu($id_cate){
-        $show_cates = DB::table('categories')->get();
-        // $show_products = DB::table('products')->latest()->paginate(5);
-        if($id_cate == 0){
-            $show_products= DB::table('products')->latest()->paginate(8);
-        } else{
-            $show_products = Product::where('category_id',$id_cate)->latest()->paginate(5);
-        }
-        
-        return view('admin.table_manage.admin_menu',[
-            'show_cates'=>$show_cates,
-            'show_products'=>$show_products
-        ]);
-    }
-
-    //LOAD CATE
-    public function load_cate($id_cate){
-        $output = '';
-        $get_products = Category::where('category_id',$id_cate)->get();
-        foreach($get_products as $get_product){
-            $output .= 
-            '<li>
-                <a href="#" onclick="cms_select_menu({{ $get_product->id }})" title="{{ $get_product->product_name }}">
-                    <div class="img-product">
-                        
-                    </div>
-                    <div class="product-info">
-                        <span class="product-name">{{ $get_product->product_name }}</span><br>
-                        <strong>{{ $get_product->product_price }}</strong>
-                    </div>
-                </a>	
-            </li>'; 
-        // return view('admin.table_manage.admin_table');    
-        }
-    }
-
-    // public function getUpdateUnit(Request $request){
-    //     $request->Session()->forget('id_cate');
-    //     Session::put('id_cate',$request->id);
-    // }
+    
 }

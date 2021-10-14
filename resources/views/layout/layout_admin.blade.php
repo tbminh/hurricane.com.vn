@@ -276,7 +276,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('admin-table')}}" class="nav-link">
+                        <a href="{{url('admin-table/0')}}" class="nav-link">
                             <i class="fa fa-sliders" aria-hidden="true"></i>
                             <p>
                                 Quản lý đặt bàn
