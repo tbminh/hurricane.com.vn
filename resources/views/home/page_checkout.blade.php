@@ -180,6 +180,7 @@
                                 </table>
                             </div>
                         </form>
+                        <a href="{{route('vnpay_online',$total_price)}}"> thanh toan online</a>
                     </div>
                 </div>
             </div>

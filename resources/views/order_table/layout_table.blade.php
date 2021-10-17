@@ -70,10 +70,11 @@
 								<tbody id="pro_search_append">
 									{{-- Không hiển thị table-cart khi chưa chọn món cho bàn --}}
 										@if(isset($id_table))
-											<form action="{{ url('checkout-table/'.$id_table) }}" class="checkout" method="POST">
-											@csrf
+											
 											@php($show_carts = DB::table('table_carts')->where('table_id',$id_table)->get())
 											<?php $total_price = 0; ?>
+											<form method="POST" role="form" action="{{ url('checkout-table/'.$id_table) }}"  >
+											@csrf
 											@foreach ($show_carts as $key => $show_cart)
 												@php($get_products = DB::table('products')->where('id',$show_cart->product_id )->first())
 												<tr>
@@ -82,12 +83,16 @@
 														<span>{{ $get_products->product_name }}</span>
 													</td>
 													<td data-label="Số lượng"> 
-														{{-- <input type="number" size="3" class="input-text qty text" name="quantity" value="{{ $show_cart->tc_quantity }}" min="0" step="1"> --}}
 														<div class="input-group spinner">
-															<button class="input-group-prepend btn btn-default"><i class="fa fas fa-minus"></i></button>
+															<a class="btn btn-default dec" data="{{ $show_cart->id  }}">
+																<i class="fa fas fa-minus"></i>
+															</a>
 															<input type="number" style="width: 50px; text-align: center;" class="form-control quantity-product-oders"
-																name="inputQty" value="{{ $show_cart->tc_quantity }}">
-															<button class="input-group-prepend btn btn-default"><i class="fa fas fa-plus"></i></button>
+																name="inputQty" value="{{ $show_cart->tc_quantity }}" id="cartqty_{{ $show_cart->id }}"
+																onchange="myFunction({{ $show_cart->id }} + ',' + this.value)">
+															<a class="btn btn-default inc" data="{{ $show_cart->id  }}">
+																<i class="fa fas fa-plus"></i>
+															</a>
 														</div>
 													</td>
 													<td data-label="Giá">{{  number_format($get_products->product_price) }} VND/{{ $get_products->unit_price }} </td>
@@ -101,10 +106,17 @@
 														{{ number_format($total) }} VND
 													</td>
 													<td class="text-center">
-														<i class="fa fa-times-circle del-pro-order"></i>
+														<a href="#" class="deLete" data="{{ $show_cart->id  }}" title="Xóa" >
+															<i class="fa fa-times-circle del-pro-order"></i>
+														</a>
 													</td>
 												</tr>  
 											@endforeach
+											<tr>
+												<td class="action">
+													<button class="btn btn-success" type="submit" name="checkout">Thanh Toán</button>
+												</td>
+											</tr>
 											</form>
 										@else
 										@endif
@@ -146,7 +158,7 @@
 							<div class="row form-group">
 								<label class="col-form-label col-md-4"><b>Khách Đưa</b></label>
 								<div class="col-md-8">
-									<input type="text" class="form-control customer-pay" value="0" placeholder="Nhập số điền khách đưa">
+									<input type="text" class="form-control customer-pay" value="0"  placeholder="Nhập số điền khách đưa">
 								</div>
 							</div>
 							<div class="row form-group">
@@ -161,21 +173,80 @@
 		</div>
 	</div>
 </body>
+
 <script>
-    $(document).ready(function(){
-	$('.ft-tabs .tabs-list li a').click(function(){
-		$('.ft-tabs .tabs-list li a').removeClass("active");
-		$(this).addClass("active");
-		// var tab = $(this).attr('data');
-		// if(tab=='listtable'){
-		// 	$('#table-list').attr('hidden',false);
-		// 	$('#table-list').load('table.php');
-		// 	$('#pos').attr('hidden',true);
-		// }else{
-		// 	$('#table-list').attr('hidden',true);
-		// 	$('#pos').attr('hidden',false);
-		// }
+	//Tính tiền thừa
+	$('.customer-pay').keyup(function(){
+		var customer_pay;
+		if($(this).val()==''){
+			customer_pay=0;
+		}else{
+			customer_pay = cms_decode_currency_format($(this).val());
+		}
+		var total_pay = cms_decode_currency_format($('.total-pay').val());
+		var debt = customer_pay - total_pay;
+		$(this).val(cms_encode_currency_format(customer_pay));
+		$('.excess-cash').html(cms_encode_currency_format(debt));
 	});
-});
-    
+	function cms_decode_currency_format(obs) {
+    if (obs == '')
+        return 0;
+    else
+        return parseInt(obs.replace(/,/g, ''));
+	}
+	function cms_encode_currency_format(obs) {
+		return obs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	//Bắt sự kiện click nút tăng giảm
+	$('.btn-default').click(function(){
+		var key = $(this).attr('data');
+		var cartqty = $('#cartqty_'+key).val();
+		if($(this).hasClass('inc')){
+			$('#cartqty_'+key).val(parseInt(cartqty) + 1);
+			update_cart(key,parseInt(cartqty) + 1);
+		} 
+		else if($(this).hasClass('dec')){
+			$('#cartqty_'+key).val(parseInt(cartqty) - 1);
+			update_cart(key,parseInt(cartqty) - 1);
+		}
+	});
+	//Lấy id và giá trị số lượng của sp
+	function myFunction(e) {
+		var ele = e.split(",");
+		update_cart(ele[0],ele[1]);
+	}
+
+	//Hàm cập nhật số lượng
+	function update_cart(key,qty){
+		$.ajax({
+			url: "{{ url('update-cart') }}/"+key+"/"+qty,
+			success:function(result){
+				location.reload();
+			}
+		})
+	}
+
+	//Bắt sự kiện nút xóa
+	$('.delete').click(function(){
+		var key = $(this).attr('data');
+		delete_cart(key);
+	});
+
+	//Hàm xóa
+	function delete_cart(key){
+		$.ajax({
+			url: "{{ url('delete-table-cart') }}/"+key,
+			success:function(result){
+				location.reload();
+			}
+		})
+	}
+
+	//Lấy tiền thừa
+	// $('.customer-pay').change(function(){
+	// 	var money =  parseInt(this.value);
+	// 	var total = parseInt($("#total-pay").val());
+	// 	var excess = total - money;
+	// });
 </script>

@@ -41,6 +41,10 @@ Route::get('delete-product-cart/{id_cart}','HomeController@delete_product_cart')
 Route::get('page-checkout/{id_user}','HomeController@page_checkout');
 //Hàm thanh toán đơn hàng
 Route::post('checkout-payment/{id_user}','HomeController@checkout_payment');
+Route::get('checkout-vnpay/{total}','HomeController@vnpay_online')->name('vnpay_online');
+
+Route::post('checkout-online','HomeController@create')->name('checkout_vnpay');
+Route::get('return-page-vnpay-checkout','HomeController@return')->name('return_checkout_vnpay');
 
 //=========ORDER TABLE ==========//
 // //Trang đặt bàn
@@ -200,6 +204,13 @@ Route::get('logout-admin','AdminController@logout_admin');
 
     //Thêm product và table và table-cart
     Route::get('add-table-cart/{id_table}/{id_product}','TableController@add_table_cart');
+
+    //Cập nhật số lượng
+    // Route::get('update-table-cart','TableController@update_table_cart');
+    Route::get('update-cart/{key}/{qty}','TableController@update_cart');
+
+    //Xóa table cart
+    Route::get('delete-table-cart/{id_cart}','TableController@delete_table_cart');
 
     //Hàm thanh toán table
     Route::post('checkout-table/{id-table}','TableController@checkout_table');

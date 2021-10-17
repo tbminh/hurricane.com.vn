@@ -70,16 +70,4 @@
             {{ $show_products->links() }}
         </ul>
 </div>
-
-@if(session()->has('success'))
-        <script>
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Thêm thành công!',
-                showConfirmButton: false,
-                timer: 2000
-            })
-        </script>
-    @endif
 @endsection

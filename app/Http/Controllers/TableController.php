@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class TableController extends Controller
 {
@@ -58,12 +59,13 @@ class TableController extends Controller
         }
 
         DB::table('tables')->where('id',$id_table)->update(['table_status'=>1]);
-        return redirect()->back()->with('success','Đã thêm thành công');
+        return redirect()->back();
     }
 
     //Hàm thanh toán cho table
     public function checkout_table($id_table){
-        //Thêm vào order_table
+        echo $id_table;
+        die();
         $add_ot = new OrderTable();
         $add_ot->ot_status = 1;
         $add_ot->ot_payment	= 1;
@@ -89,5 +91,24 @@ class TableController extends Controller
         }
         DB::table('table_carts')->where('table_id',$id_table)->delete();
         return redirect('table-manage/0')->with('success','Đã thanh toán');
+    }
+
+    //Hàm xóa table cart
+    public function delete_table_cart($id_cart){
+        TableCart::destroy($id_cart);
+    }
+
+    //Cập nhất số lượng table cart
+    // public function update_table_cart(Request $request){
+    //     if($request->id and $request->quantity){
+    //         $oldCart = Session::has('cart')?Session::get('cart'):null;
+    //         $cart = new TableCart($oldCart);
+    //         $cart->update_cart($request->id,$request->tc_quantity);
+    //         session()->put('cart', $cart);
+    //     }
+    // }
+    //Cập nhật số lượng table-cart
+    public function update_cart($key, $qty){
+        $add_cart = TableCart::where('id',$key)->update(['tc_quantity'=>$qty]);
     }
 }
