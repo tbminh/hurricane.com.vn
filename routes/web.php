@@ -96,7 +96,7 @@ Route::post('check-login','AdminController@check_login');
 Route::get('logout-admin','AdminController@logout_admin');
 
 //============================================== ADMIN ================================================//
-// Route::middleware([CheckLogin::class])->group(function () {
+Route::middleware([CheckLogin::class])->group(function () {
 
     //Trang admin
     Route::get('page-admin','AdminController@page_admin');
@@ -184,17 +184,7 @@ Route::get('logout-admin','AdminController@logout_admin');
     //Xuất hóa đơn
     Route::get('export-order/{id}', 'AdminController@export_order');
 
-    //========QUẢN LÝ ĐẶT BÀN=====//
-    Route::get('admin-table/{id_area}','AdminController@admin_table');
-
-    Route::get('admin-menu/{id_cate}','AdminController@admin_menu');
-
-    Route::post('search','HomeController@search');
-
-    Route::get('update-cart', 'AdminController@getUpdateUnit')->name('getUpdateUnit');
-    // });
-
-//===================QUẢN LÝ ĐẶT BÀN- CHỌN MÓN =================//
+    //==========QUẢN LÝ ĐẶT BÀN- CHỌN MÓN =================//
 
     //Trang chọn bàn
     Route::get('table-manage/{id_area}','TableController@table_manage');
@@ -213,4 +203,6 @@ Route::get('logout-admin','AdminController@logout_admin');
     Route::get('delete-table-cart/{id_cart}','TableController@delete_table_cart');
 
     //Hàm thanh toán table
-    Route::post('checkout-table/{id-table}','TableController@checkout_table');
+    Route::post('checkout-table/{id_table}','TableController@checkout_table');
+    });
+

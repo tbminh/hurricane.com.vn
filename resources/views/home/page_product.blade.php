@@ -1,7 +1,7 @@
 @extends('layout.layout')
 @section('title','Trang món ăn')
 @section('content')
-<link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet">
+{{-- <link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
 <style>
     /* .container {
         width: 100%;
@@ -90,9 +90,9 @@
 <section id="test">
     <div class="container">
      <div class="row">
-      <div class="products_1">
-       <h2 style="color: #B06565;">{{ $category_id->category_name }}</h2>
-      </div>
+        <div class="collection_text">
+            {{ $category_id->category_name }}
+        </div>
      </div> 
     </div>
 </section>
@@ -101,43 +101,45 @@
     <div class="product-list">
         <ul class="items">
             <li>
-                <div class="row">
-                    @foreach ($show_products as $show_product)
-                        <div class="col-md-3">
-                            <div class="pro">
-                                <div class="field-img">
-                                    @if($show_product->product_status == 1)
-                                        <div class="img-status">
-                                            <img src="{{ asset('public/home/upload_img/best.gif')}}">
-                                        </div>
-                                    @elseif($show_product->product_status == 2)  
-                                        <div class="img-new">
-                                            <img src="{{ asset('public/home/upload_img/new.gif')}}" width="80" height="60">
-                                        </div>
-                                     @endif    
-                                    <a href="#"><img src="{{ asset('public/home/upload_img/'.$show_product->product_img) }}" width="236" height="165"></a>
+                <div class="content">
+                    <div class="row">
+                        @foreach ($show_products as $show_product)
+                            <div class="col-md-3">
+                                <div class="pro">
+                                    <div class="field-img">
+                                        @if($show_product->product_status == 1)
+                                            <div class="img-status">
+                                                <img src="{{ asset('public/home/upload_img/best.gif')}}">
+                                            </div>
+                                        @elseif($show_product->product_status == 2)  
+                                            <div class="img-new">
+                                                <img src="{{ asset('public/home/upload_img/new.gif')}}" width="80" height="60">
+                                            </div>
+                                         @endif    
+                                        <a href="#"><img src="{{ asset('public/home/upload_img/'.$show_product->product_img) }}" width="236" height="165"></a>
+                                    </div>
+                                    <h3>
+                                        <a href="#">{{ $show_product->product_name }}</a>
+                                    </h3>
+                                    <div class="field-price">
+                                        <span>{{ number_format($show_product->product_price)  }}₫/{{ $show_product->unit_price }}</span>
+                                    </div>
+                                    <div class="field-btn">
+                                        @if (Auth::check())
+                                            <a href="{{ url('add-cart/'.Auth::id().'/'.$show_product->id) }}">
+                                                <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                            </a>
+                                        @else
+                                            <a onclick="return nonlogin('Bạn cần đăng nhập trước !!')" href="{{ url('page-login') }}">
+                                                <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                            </a>
+                                        @endif
+                                    
+                                    </div>
                                 </div>
-                                <h3>
-                                    <a href="#">{{ $show_product->product_name }}</a>
-                                </h3>
-                                <div class="field-price">
-                                    <span>{{ number_format($show_product->product_price)  }}₫/{{ $show_product->unit_price }}</span>
-                                </div>
-                                <div class="field-btn">
-                                    @if (Auth::check())
-                                        <a href="{{ url('add-cart/'.Auth::id().'/'.$show_product->id) }}">
-                                            <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-                                        </a>
-                                    @else
-                                        <a onclick="return nonlogin('Bạn cần đăng nhập trước !!')" href="{{ url('page-login') }}">
-                                            <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-                                        </a>
-                                    @endif
-                                
-                                </div>
-                            </div>
-                        </div>   
-                    @endforeach
+                            </div>   
+                        @endforeach
+                    </div>
                 </div>
             </li>
         </ul>

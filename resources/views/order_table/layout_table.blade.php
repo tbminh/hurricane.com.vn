@@ -50,10 +50,15 @@
 		<div class="row content">
             {{-- Thông tin đặt bàn và thực đơn --}}
 			@yield('content_table')
+			@if (!isset($id_table))
+				<?php $id_table = 0;?>
+			@endif
+			
 			<div class="col-md-6 content-listmenu" id="content-listmenu">
-				<div class="row" id="bill-info">
-				</div>
-				
+				<form method="POST" role="form" action="{{ url('checkout-table/'.$id_table) }}"  >
+				@csrf
+					<div class="row" id="bill-info">
+					</div>
 					<div class="row bill-detail">
 						<div class="col-md-12 bill-detail-content">
 							<table class="table table-bordered">
@@ -69,12 +74,10 @@
 								</thead>
 								<tbody id="pro_search_append">
 									{{-- Không hiển thị table-cart khi chưa chọn món cho bàn --}}
-										@if(isset($id_table))
-											
+										@if($id_table != 0)
 											@php($show_carts = DB::table('table_carts')->where('table_id',$id_table)->get())
 											<?php $total_price = 0; ?>
-											<form method="POST" role="form" action="{{ url('checkout-table/'.$id_table) }}"  >
-											@csrf
+											
 											@foreach ($show_carts as $key => $show_cart)
 												@php($get_products = DB::table('products')->where('id',$show_cart->product_id )->first())
 												<tr>
@@ -112,13 +115,6 @@
 													</td>
 												</tr>  
 											@endforeach
-											<tr>
-												<td class="action">
-													<button class="btn btn-success" type="submit" name="checkout">Thanh Toán</button>
-												</td>
-											</tr>
-											</form>
-										@else
 										@endif
 								</tbody>
 							</table>
@@ -131,24 +127,27 @@
 									<textarea class="form-control" id="note-order" placeholder="Nhập ghi chú hóa đơn" rows="3"></textarea>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-6 col-xs-6 p-1">
-									<button type="submit" class="btn-print" name="checkout">
-										<i class="fa fa-credit-card" aria-hidden="true"></i> Thanh Toán (F9)
-									</button>
+							@if ($id_table == 0)
+								<div class="row">
+									<div class="col-md-6 col-xs-6 p-1">
+										<button type="submit" class="btn-print" disabled>
+											<i class="fa fa-credit-card" aria-hidden="true"></i> Thanh Toán (F9)
+										</button>
+									</div>
+									<div class="col-md-6 col-xs-6 p-1">
+										<button type="button" class="btn-pay" disabled>
+											<i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu (F10)
+										</button>
+									</div>
 								</div>
-								<div class="col-md-6 col-xs-6 p-1">
-									<button type="button" class="btn-pay">
-										<i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu (F10)
-									</button>
-								</div>
-							</div>
+							@endif
+							
 						</div>
 						<div class="col-md-6">
 							<div class="row form-group">
 								<label class="col-form-label col-md-4"><b>Tổng cộng</b></label>
 								<div class="col-md-8">
-									@if(isset($id_table))
+									@if($id_table != 0)
 										<input type="text" value="{{ number_format($total_price) }} đ" class="form-control total-pay" disabled="disabled">
 									@else
 										<input type="text" value="0 đ" class="form-control total-pay" disabled="disabled">
@@ -169,6 +168,7 @@
 							</div>
 						</div>
 					</div>
+				</form>
 			</div>
 		</div>
 	</div>

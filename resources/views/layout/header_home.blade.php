@@ -1,11 +1,11 @@
-{{-- Bootstrap 4 --}}
-<link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet">
-<script src="{{ asset('public/home/js/bootstrap.min.js') }}"></script>
+    {{-- Bootstrap 4 --}}
+{{-- {{-- <link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
+<script src="{{ asset('public/home/js/bootstrap.min.js') }}"></script> 
 {{-- Jquery --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <style type="text/css" media="screen">
     #search{
-        margin-top: 30px !important;
+        margin-top: 25px !important;
     }
     .shopping-item {
     border: 1px solid #ddd;
@@ -77,7 +77,7 @@
         vertical-align: middle;
         }
         .form-inline .btn{
-        background-color: #C51C0A;
+        background-color: #EB2F06;
             height: 40px;
         } 
         .form-inline .btn:hover{
@@ -131,7 +131,7 @@
         </div>
         
         <div id="search" class="col-sm-6 col-md-6">
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <nav class="navbar navbar-expand-sm navbar-dark">
                 <form class="form-inline" action="{{ url('page-product') }}" method="get"> 
                   <input class="form-control mr-sm-2" type="text" placeholder="Tìm kiếm sản phẩm...">
                   <button id="btn-search" class="btn btn-danger" type="submit" >Search</button>

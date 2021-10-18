@@ -1,8 +1,56 @@
 @extends('layout.layout')
 @section('title','Trang chủ')
 @section('content')
-
-<section id="center">
+<style>
+    .carousel-inner{
+        height: 600px;
+    }
+    .carousel-inner .carousel-item .carousel-caption{
+        top: 480px;
+    }
+    .carousel-inner .carousel-item h5,span{
+        color: #fff;
+    }
+</style>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active" >
+            <img class="d-block w-100" src="https://i.pinimg.com/originals/39/d4/5a/39d45aa61ce17e003144ce2e1cedefb7.jpg" alt="First slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>First slide label</h5>
+                <span>Nulla vitae elit libero, a pharetra augue mollis interdum.</span>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="https://static3.bigstockphoto.com/4/2/3/large1500/324149785.jpg" alt="Second slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Second slide label</h5>
+                <span>Nulla vitae elit libero, a pharetra augue mollis interdum.</span>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="https://hdwallsource.com/img/2019/4/fast-food-burgers-wallpaper-68908-71254-hd-wallpapers.jpg" alt="Third slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Third slide label</h5>
+                <span>Nulla vitae elit libero, a pharetra augue mollis interdum.</span>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+{{-- <section id="center">
     <div class="container">
      <div class="row">
       <div class="col-sm-6">
@@ -21,7 +69,7 @@
       </div>
      </div>
     </div>
-   </section>
+</section> --}}
    {{-- <section id="middle" class="clearfix">
      <div class="col-sm-12 space_all">
                    <div id="Carousel" class="carousel slide">                
@@ -84,7 +132,7 @@
                    </div><!--.Carousel-->               
            </div>
    </section> --}}
-   <section id="Spicy" class="clearfix"> 
+   {{-- <section id="Spicy" class="clearfix"> 
       <div class="col-sm-6">
        <div class="Spicy_2">
         <a href="#"><img src="{{ asset('public/home/img/15.png') }} " alt="abc" class="img_responsive"></a>
@@ -109,7 +157,7 @@
           </ul>
        </div>
       </div>
-   </section>
+   </section> --}}
    <section id="since">
     <div class="container">
      <div class="row">

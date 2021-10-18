@@ -1,18 +1,12 @@
 @extends('layout.layout')
 @section('title','Trang thực đơn')
 @section('content')
-
-
-
-<section id="test">
-    <div class="container">
-     <div class="row">
-      <div class="products_1">
-       <h2 style="color: #B06565;">MENU</h2>
-      </div>
-     </div> 
-    </div>
-</section>
+<style>
+   
+</style>
+<div class="collection_text">
+    MENU
+</div>
 
 <section id="products">
     <div class="container">

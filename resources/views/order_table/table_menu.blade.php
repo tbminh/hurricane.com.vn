@@ -15,6 +15,9 @@
                     
                 </div>
             </div>
+            <div class="col-md-5">
+                <span class="pull-right" style="color: #fff;"><i class="fa fa-user"></i> {{ Auth::user()->user_name }}</span>
+            </div>
         </div>
     </div>
 </div>
@@ -41,7 +44,8 @@
                         <li>
                             {{-- Chọn bàn trước khi thêm sản phẩm --}}
                             @if($id_table == 0)
-                                <a href="{{ url('table-manage/0') }}" onclick="return confirm('Vui lòng chọn bàn trước')" title="{{ $show_product->product_name }}">
+                                <a href="{{ url('table-manage/0') }}" onclick="return confirm('Vui lòng chọn bàn trước')"
+                                     title="Số lượng còn lại: {{ $show_product->product_quantity }}">
                                     <div class="img-product">
                                         <img src="{{ asset('public/home/upload_img/'.$show_product->product_img) }}">
                                     </div>
@@ -51,7 +55,7 @@
                                     </div>
                                 </a>
                             @else
-                                <a href="{{ url('add-table-cart/'.$id_table.'/'.$show_product->id) }}" title="{{ $show_product->product_name }}">
+                                <a href="{{ url('add-table-cart/'.$id_table.'/'.$show_product->id) }}" title="Số lượng: {{ $show_product->product_quantity }}">
                                     <div class="img-product">
                                         <img src="{{ asset('public/home/upload_img/'.$show_product->product_img) }}">
                                     </div>

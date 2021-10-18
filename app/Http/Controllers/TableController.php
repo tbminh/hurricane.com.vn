@@ -64,8 +64,6 @@ class TableController extends Controller
 
     //Hàm thanh toán cho table
     public function checkout_table($id_table){
-        echo $id_table;
-        die();
         $add_ot = new OrderTable();
         $add_ot->ot_status = 1;
         $add_ot->ot_payment	= 1;
@@ -85,11 +83,23 @@ class TableController extends Controller
             //Tính được tổng tiền từng món =  sp * sl 
             $add_detail->ot_price = $get_product->product_price * $get_table_cart->tc_quantity;
             $add_detail->save();
-            //Trừ số lượng sp trong kho ra
-            $result = $get_product->product_quantity - $get_table_cart->tc_quantity;
-            DB::table('products')->where('id',$get_table_cart->product_id)->update(['product_quantity',$result]);
+            //lấy số lượng sp trong kho và sp từ giỏ hàng
+            $get_qty = $get_product->product_quantity;
+            $get_qty_cart = $get_table_cart->tc_quantity;
+            //Trường hợp đặc biệt món gà rán
+            if($get_product->category_id == 1){
+                foreach($get_product as $product){
+                    $quantity = ($get_qty - $get_qty_cart);
+                    DB::table('products')->where('category_id',1)->update(['product_quantity'=> $quantity]);
+                }
+            } else{
+                //Trừ số lượng sp trong kho ra
+                $result =  $get_qty - $get_qty_cart;
+                DB::table('products')->where('id',$get_table_cart->product_id)->update(['product_quantity'=> $result]);
+            }
         }
         DB::table('table_carts')->where('table_id',$id_table)->delete();
+        DB::table('tables')->where('id',$id_table)->update(['table_status'=>0]);
         return redirect('table-manage/0')->with('success','Đã thanh toán');
     }
 
