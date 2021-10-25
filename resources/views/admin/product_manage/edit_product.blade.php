@@ -41,7 +41,7 @@
 
                         <!-- /.card-header -->
                         <div class="card-body p-2">
-                            <form action="{{ url('update-product/'.$infor_product->id) }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ url('update-product/'.$infor_product->id.'/'.$get_ps->id) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
@@ -49,6 +49,21 @@
                                     <label for="">Tên sản phẩm:</label>
                                     <input type="text" name="inputName" class="form-control" placeholder="Nhập tên sản phẩm..."
                                     value="{{ $infor_product->product_name }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Nhà cung cấp:</label>
+                                    <select name="inputSupplier" class="form-control">
+                                        @php($supplier = DB::table('suppliers')->where('id',$get_ps->supplier_id)->first())
+                                        <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>
+                                        <option value=""> --Chọn--</option>
+                                        @php($get_suppliers = DB::table('suppliers')->get())
+                                        @foreach($get_suppliers as $value)
+                                            <option value="{{ $value->id }}">
+                                                {{$value->supplier_name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
@@ -70,13 +85,13 @@
                                 </div>
 
                                 <div class="form-group col-md-10">
-                                    <label for="">Đơn vị tính</label>
+                                    <label for="">Đơn vị tính:</label>
                                     <input type="text" name="inputUnit" class="form-control" placeholder="Nhập đơn vị tính..."
                                     value="{{ $infor_product->unit_price }}">
                                 </div>
 
                                 <div class="form-group col-md-10">
-                                    <label for="">Giảm giá (%)</label>
+                                    <label for="">Giảm giá (%):</label>
                                     <input type="number" name="inputDiscount" class="form-control" placeholder="Nhập giá chiết khấu..."
                                     value="{{ $infor_product->product_discount }}">
                                 </div>

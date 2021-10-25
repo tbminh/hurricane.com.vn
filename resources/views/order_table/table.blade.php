@@ -54,15 +54,5 @@
         </div>
     </div>
 </div>
-@if(session()->has('success'))
-        <script>
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Thanh toán thành công!',
-                showConfirmButton: false,
-                timer: 2000
-            })
-        </script>
-    @endif
+
 @endsection

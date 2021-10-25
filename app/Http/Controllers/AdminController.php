@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Category;
+use App\Combo;
+use App\ComboProduct;
 use App\Comment;
 use App\Order;
 use App\OrderDetail;
@@ -23,8 +25,9 @@ class AdminController extends Controller
 {
     //Trang admin
     public function page_admin(){
+        $show_order_lastests = Order::where('order_status',0)->take(5)->get();
         if((Auth::check() && Auth::user()->role_id == 1) || Auth::check() && Auth::user()->role_id == 2){
-            return view('admin.index_admin');
+            return view('admin.index_admin',['show_order_lastests'=>$show_order_lastests]);
         }else{
             return redirect('login-admin');
         }
@@ -298,11 +301,6 @@ class AdminController extends Controller
         return view('admin.product_manage.list_product',['show_products'=>$show_products]);
     }
 
-    //Trang thêm sản phẩm
-    public function add_product(){
-        return view('admin.product_manage.add_product');
-    }
-
     //Hàm thêm sản phẩm
     public function post_product(Request $request){
         $add_product = new Product();
@@ -310,9 +308,8 @@ class AdminController extends Controller
         $add_product->product_name = $request->input('inputName');
         $add_product->product_quantity = $request->input('inputQuantity');
         $add_product->product_price = $request->input('inputPrice');
-        $add_product->product_discount = $request->input('discount');
+        $add_product->product_discount = 0;
         $add_product->unit_price = $request->input('inputUnitPrice');
-        $add_product->temp = $request->input('inputTemp');
 
         if($request->hasFile('inputFileImage')){
             $image = $request->file('inputFileImage');
@@ -322,24 +319,24 @@ class AdminController extends Controller
         }
         $add_product->save();
 
-        //Thực hiện 3
-        // $max_id_product = DB::table('products')->max('id');
+        // Thực hiện 3
+        $max_id_product = DB::table('products')->max('id');
 
-        // //Thực hiện 4
-        // $add_pro_sup = new ProductSupplier();
-        // $add_pro_sup->product_id = $max_id_product;
-        // $add_pro_sup->supplier_id= $request->input('inputSupplierId');
-        // $add_pro_sup->save();
+        //Thực hiện 4
+        $add_pro_sup = new ProductSupplier();
+        $add_pro_sup->product_id = $max_id_product;
+        $add_pro_sup->supplier_id= $request->input('inputSupplier');
+        $add_pro_sup->save();
 
         return redirect('page-list-product')->with('message1','');
     }
 
     //them chi tiet sp
-    public function add_pdetail(){
+    // public function add_pdetail(){
 
-        return view('admin.product_manage.add_dproduct');
+    //     return view('admin.product_manage.add_dproduct');
 
-    }
+    // }
 
     //HÀM XÓA SẢN PHẨM
     public function delete_product($id_product){
@@ -350,11 +347,15 @@ class AdminController extends Controller
     //Hàm chỉnh sửa sản phẩm
     public function edit_product($id){
         $infor_product = Product::find($id);
-        return view('admin.product_manage.edit_product', ['infor_product'=>$infor_product]);
+        $get_ps = ProductSupplier::where('product_id',$id)->first();
+        return view('admin.product_manage.edit_product', [
+            'infor_product'=>$infor_product,
+            'get_ps'=>$get_ps
+        ]);
     }
 
     //Cập nhật thông tin sản phẩm
-    public function update_product(Request $request, $id_product){
+    public function update_product(Request $request, $id_product, $id_pro_sub){
         $update_infor_product = Product:: find($id_product);
         $update_infor_product->product_name = $request->input('inputName');
         $update_infor_product->product_price = $request->input('inputPrice');
@@ -370,12 +371,93 @@ class AdminController extends Controller
         }
         $update_infor_product->save();
 
+        $update_pro_sup = ProductSupplier::find($id_pro_sub);
+        $update_pro_sup->supplier_id = $request->input('inputSupplier');
+        $update_pro_sup->save();
+
         return redirect('page-list-product')->with('message','Đã cập nhật thông tin sản phẩm');
     }
 
+    //HÀM HIỂN THỊ DANH SÁCH COMBO
+    public function combo_product(){
+        $show_combos = Combo::latest()->paginate(5);
+        return view('admin.product_manage.combo_product',['show_combos'=>$show_combos]);
+    }
+
+    //Tính giảm giá tăng
+    public function increaseQty($id_combo){
+        $combo = Combo::get($id_combo);
+        $dis = $combo->combo_discount + 1;
+        $price = $combo->combo_total_price - ($combo->combo_total_price * $dis)/100;
+        Combo::updated($id_combo,$dis,$price);
+    }
+
+    //HÀM THÊM MỚI COMBO
+    public function add_combo(Request $request){
+        $add_combo = new Combo();
+        $add_combo->combo_name = $request->input('inputName');
+        $add_combo->combo_discount = $request->input('inputDiscount');
+        $add_combo->combo_total_price = 0;
+
+        if($request->hasFile('inputFileImage')){
+            $image = $request->file('inputFileImage');
+            $image_name = $image->getClientOriginalName();
+            $image->move(public_path('home/upload_img'), $image_name);
+            $add_combo->combo_img = $image_name;
+        }
+
+        $add_combo->save();
+        return redirect()->back();
+    }
+
+    //TRANG HIỂN THỊ COMBO DETAILS
+    public function combo_detail($id_combo){
+        $show_details = ComboProduct::where('combo_id',$id_combo)->get();
+        return view('admin.product_manage.combo_detail',[
+            'show_details'=>$show_details,
+            'id_combo' => $id_combo
+        ]);
+    }
+
+    //HÀM THÊM MỚI PRODUCT COMBO
+    public function add_combo_detail($id_combo,Request $request){
+        $add_cd = new ComboProduct();
+        $add_cd->combo_id = $id_combo;
+        $add_cd->product_id = $request->input('inputProduct');
+        $add_cd->quantity_combo = $request->input('inputQuantity');
+        $add_cd->save();
+        //Lấy tổng giá lúc trước khi thêm
+        $get_combo = DB::table('combos')->where('id',$id_combo)->first();   
+        $total_original = $get_combo->combo_total_price;
+        //Lấy tổng giá sản phẩm vừa mới thêm vào
+        $get_id = DB::table('combo_products')->max('id');
+        $get_max = DB::table('combo_products')->where('id',$get_id)->first();
+        //Lấy giá sản phẩm trong kho để trừ
+        $get_pro = DB::table('products')->where('id',$get_max->product_id)->first();
+        $get_total = $get_max->quantity_combo * $get_pro->product_price;
+        //Tính lại được giá tổng
+        $update_total = $total_original + $get_total;
+        DB::table('combos')->where('id',$id_combo)->update(['combo_total_price' => $update_total]);
+        return redirect()->back()->with('success','Thêm thành công');
+    }
+
+    //HÀM XÓA COMBO DETAILS
+    public function delete_product_combo($id_detail){
+        ComboProduct::where('id','=',$id_detail)->delete();
+        return redirect()->back()->with('delete','Đã xóa thành công');
+    }
+
+
+    //========HÀM TÌM SẢN PHẨM THEO CATEGORY AJAX=======//
+    public function findProductName(Request $request){
+        $data = Product::select('product_name','id')->where('category_id',$request->id)->get();
+        return response()->json($data);
+    }
+    //==================================================//
+    
     //HÀM HIỂN THỊ NHÀ CUNG CẤP
     public function product_supplier(){
-        $show_suppliers = DB::table('suppliers')->paginate(5);
+        $show_suppliers = DB::table('suppliers')->latest()->paginate(5);
         return view('admin.product_manage.product_supplier',['show_suppliers'=>$show_suppliers]);
     }
 

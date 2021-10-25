@@ -65,6 +65,17 @@
 			background: #a00d0d;
 			border-color: #a00d0d;
 		}
+		.navbar-nav1  {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			float: right;
+		}
+		
+		.hvr-underline-from-center1 {
+			float: left;
+		}
 	</style>
   </head>
 <body>
@@ -83,20 +94,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button> --}}
-		<style>
-				.navbar-nav1  {
-				  list-style-type: none;
-				  margin: 0;
-				  padding: 0;
-				  overflow: hidden;
-				  float: right;
-				}
-				
-				.hvr-underline-from-center1 {
-				  float: left;
-				}
-				
-				</style>
+
 			<ul class="nav navbar-nav" style="float: left; padding-top: 0px;">
 				<li style="margin-left: 80px"></li>
 				<li class="active"><a href="{{ url('/') }}" class="hvr-underline-from-center1">TRANG CHỦ</a></li>
@@ -107,7 +105,6 @@
 				
 			</ul>
 		</div>
-
 		</nav>
   	</div>
   </div>

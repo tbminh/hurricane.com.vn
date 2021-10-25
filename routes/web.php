@@ -41,9 +41,11 @@ Route::get('delete-product-cart/{id_cart}','HomeController@delete_product_cart')
 Route::get('page-checkout/{id_user}','HomeController@page_checkout');
 //Hàm thanh toán đơn hàng
 Route::post('checkout-payment/{id_user}','HomeController@checkout_payment');
-Route::get('checkout-vnpay/{total}','HomeController@vnpay_online')->name('vnpay_online');
-
-Route::post('checkout-online','HomeController@create')->name('checkout_vnpay');
+//Trang thanh toán online
+Route::get('checkout-vnpay/{total}/{id_user}','HomeController@vnpay_online');
+//Hàm tạo thông tin thanh toán online
+Route::post('checkout-online/{id_user}','HomeController@create');
+//Hàm trả về thông tin
 Route::get('return-page-vnpay-checkout','HomeController@return')->name('return_checkout_vnpay');
 
 //=========ORDER TABLE ==========//
@@ -145,12 +147,23 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('delete-category/{id_category}', 'AdminController@delete_category');
     //DS sản phẩm
     Route::get('page-list-product', 'AdminController@page_list_product');
-    //Trang thêm sản phẩm
-    Route::get('add-product', 'AdminController@add_product');
+    //DS combo theo sản phẩm
+    Route::get('page-combo-product','AdminController@combo_product');
+    //Trang thêm combo
+    Route::post('add-combo', 'AdminController@add_combo');
+    //Trang chi tiết combo
+    Route::get('combo-detail/{id_combo}','AdminController@combo_detail');
+    //Xóa combo detail
+    Route::get('delete-product-combo/{id_detail}','AdminController@delete_product_combo');
+    //Thêm product vào combo 
+    Route::post('post-add-cd/{id_combo}','AdminController@add_combo_detail');
+    //Lấy sản phẩm theo category bằng ajax
+    Route::get('findProductName','AdminController@findProductName');
+
     //Hàm thêm sản phẩm CSDL
     Route::post('post-product', 'AdminController@post_product');
 
-    //them chi tiet sp
+    //Thêm chi tiết sản phẩm
     Route::get('add-pdetail','AdminController@add_pdetail');
 
     //Hàm chỉnh sửa sản phẩm
@@ -158,7 +171,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     //Xóa sản phẩm
     Route::get('delete-product/{id_product}','AdminController@delete_product');
     //Cập nhật thông tin sản phẩm
-    Route::put('update-product/{id_product}', 'AdminController@update_product');
+    Route::put('update-product/{id_product}/{id_pro_sub}', 'AdminController@update_product');
     //Nhà cung cấp
     Route::get('product-supplier', 'AdminController@product_supplier');
     //Hàm thêm nhà cung cấp CSDL
@@ -193,14 +206,16 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('table-menu/{id_table}/{id_cate}','TableController@table_menu');
 
     //Thêm product và table và table-cart
-    Route::get('add-table-cart/{id_table}/{id_product}','TableController@add_table_cart');
+    Route::get('add-table-cart/{id_user}/{id_table}/{id_product}','TableController@add_table_cart');
+
+    //Thêm combo và table vào table-cart
+    Route::get('add-combo-tbcart/{id_user}/{id_table}/{id_combo}','TableController@add_combo_tbcart');
 
     //Cập nhật số lượng
-    // Route::get('update-table-cart','TableController@update_table_cart');
     Route::get('update-cart/{key}/{qty}','TableController@update_cart');
 
     //Xóa table cart
-    Route::get('delete-table-cart/{id_cart}','TableController@delete_table_cart');
+    Route::get('delete-table-cart/{id_table}','TableController@delete_table_cart');
 
     //Hàm thanh toán table
     Route::post('checkout-table/{id_table}','TableController@checkout_table');

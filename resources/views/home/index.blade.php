@@ -70,68 +70,6 @@
      </div>
     </div>
 </section> --}}
-   {{-- <section id="middle" class="clearfix">
-     <div class="col-sm-12 space_all">
-                   <div id="Carousel" class="carousel slide">                
-                   <ol class="carousel-indicators">
-                       <li data-target="#Carousel" data-slide-to="0" class="active"></li>
-                       <li data-target="#Carousel" data-slide-to="1"></li>
-                       <li data-target="#Carousel" data-slide-to="2" class=""></li>
-                   </ol>                 
-                   <!-- Carousel items -->
-                   <div class="carousel-inner">                    
-                   <div class="item active">
-                       <div class="row">
-                         <div class="col-lg-3 col-md-4 col-sm-6">
-                         <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/3.jpg') }} " alt="abc" class="img_responsive"></a>
-                         </div>
-                         <div class="col-lg-3 col-md-4 col-sm-6">
-                         <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/4.jpg') }} " alt="abc" class="img_responsive"></a>
-                         </div>
-                         <div class="col-lg-3 col-md-4 col-sm-6">
-                         <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/5.jpg') }} " alt="abc" class="img_responsive"></a>
-                         </div>
-                         <div class="col-lg-3 col-md-4 col-sm-6">
-                         <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/6.jpg') }} " alt="abc" class="img_responsive"></a>
-                         </div>
-                       </div><!--.row-->
-                   </div><!--.item-->                 
-                   <div class="item">
-                       <div class="row">
-                           <div class="col-lg-3 col-md-4 col-sm-6">
-                           <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/7.jpg') }} " alt="abc" class="img_responsive"></a>
-                           </div>
-                           <div class="col-lg-3 col-md-4 col-sm-6">
-                           <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/8.jpg') }} " alt="abc" class="img_responsive"></a>
-                           </div>
-                           <div class="col-lg-3 col-md-4 col-sm-6">
-                           <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/9.jpg') }} " alt="abc" class="img_responsive"></a>
-                           </div>
-                           <div class="col-lg-3 col-md-4 col-sm-6">
-                           <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/10.jpg') }} " alt="abc" class="img_responsive"></a>
-                           </div>
-                       </div><!--.row-->
-                   </div><!--.item-->                 
-                   <div class="item">
-                       <div class="row">
-                           <div class="col-lg-3 col-md-4 col-sm-6">
-                           <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/11.jpg') }} " alt="abc" class="img_responsive"></a>
-                           </div>
-                           <div class="col-lg-3 col-md-4 col-sm-6">
-                           <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/12.jpg') }} " alt="abc" class="img_responsive"></a>
-                           </div>
-                           <div class="col-lg-3 col-md-4 col-sm-6">
-                           <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/13.jpg') }} " alt="abc" class="img_responsive"></a>
-                           </div>
-                           <div class="col-lg-3 col-md-4 col-sm-6">
-                           <a href="#" class="thumbnail"><img src="{{ asset('public/home/img/14.jpg') }} " alt="abc" class="img_responsive"></a>
-                           </div>
-                       </div><!--.row-->
-                   </div><!--.item-->                 
-                   </div><!--.carousel-inner-->
-                   </div><!--.Carousel-->               
-           </div>
-   </section> --}}
    {{-- <section id="Spicy" class="clearfix"> 
       <div class="col-sm-6">
        <div class="Spicy_2">
@@ -158,6 +96,7 @@
        </div>
       </div>
    </section> --}}
+   {{-- <div style="background-color: #333;"> --}}
    <section id="since">
     <div class="container">
      <div class="row">
@@ -179,25 +118,26 @@
     </div>
    </section>
    <section id="place">
-   <div class="container">
-     <div class="row">
-      <div class="col-sm-6">
-       <div class="since_2">
-        <a href="#"><img src="{{ asset('public/home/img/chicken1.png') }} " alt="abc" class="img_responsive"></a>
-       </div>
-      </div>
-      <div class="col-sm-6">
-       <div class="since_1">
-        <h1>Dignissim Lacinia</h1>
-        <p>Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
-           torquent per conubia nostra, per inceptos . Curabitursodales ligula in libero. </p>
-        <p>Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.torquent per conubia nostra, per inceptos</p>
-        <a href="#" class="button"> ORDER NOW </a>	 
-       </div>
-      </div>
-     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="since_2">
+                    <a href="#"><img src="{{ asset('public/home/img/chicken1.png') }} " alt="abc" class="img_responsive"></a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="since_1">
+                    <h1>Dignissim Lacinia</h1>
+                    <p>Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+                    torquent per conubia nostra, per inceptos . Curabitursodales ligula in libero. </p>
+                    <p>Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.torquent per conubia nostra, per inceptos</p>
+                    <a href="#" class="button"> ORDER NOW </a>	 
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+{{-- </div> --}}
    {{-- Thông báo đăng nhập thành công --}}
    @if(session()->has('message1'))
         <script>
@@ -205,6 +145,18 @@
                 position: 'center',
                 icon: 'success',
                 title: 'Đăng nhập thành công!',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        </script>
+    @endif
+
+   @if(session()->has('checkouted'))
+        <script>
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Thanh toán thành công!',
                 showConfirmButton: false,
                 timer: 2000
             })

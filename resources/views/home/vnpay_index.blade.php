@@ -24,9 +24,9 @@
     <h3>THÔNG TIN THANH TOÁN</h3>
     <div class="table-responsive">
        
-        <form action="{{route('checkout_vnpay')}}" id="create_form" method="post">
+        <form action="{{ url('checkout-online/'.Auth::id()) }}" id="create_form" method="post">
             @csrf
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label for="language">Loại hàng hóa </label>
                 <select name="order_type" id="order_type" class="form-control">
                     <option value="topup">Chọn ... </option>
@@ -34,7 +34,7 @@
                     <option value="fashion">Thanh toán nợ</option>
                     <option value="other">Khác - Xem thêm tại VNPAY</option>
                 </select>
-            </div>
+            </div> --}}
             <div class="form-group">
                 <label for="order_id">Mã hóa đơn</label>
                 <input class="form-control" id="order_id" name="order_id" type="text" value="<?php echo date("YmdHis") ?>"/>
@@ -46,12 +46,12 @@
             </div>
             <div class="form-group">
                 <label for="order_desc">Nội dung thanh toán</label>
-                <textarea class="form-control" cols="20" id="order_desc" name="order_desc" rows="2">Noi dung thanh toan</textarea>
+                <textarea class="form-control" cols="20" id="order_desc" name="order_desc" rows="2" required="required">Nội dung thanh toán</textarea>
             </div>
             <div class="form-group">
                 <label for="bank_code">Ngân hàng</label>
                 <select name="bank_code" id="bank_code" class="form-control">
-                    <option value="">Không chọn</option>
+                    <option value="">----- Chọn Ngân Hàng ------</option>
                     <option value="NCB"> Ngan hang NCB</option>
                     <option value="AGRIBANK"> Ngan hang Agribank</option>
                     <option value="SCB"> Ngan hang SCB</option>
@@ -88,13 +88,13 @@
                 <div class="form-group">
                     <label >Họ tên (*)</label>
                     <input class="form-control" id="txt_billing_fullname"
-                           name="txt_billing_fullname" type="text" value="{{ Auth::user()->name }}"/>
+                           name="txt_billing_fullname" type="text" value="{{ Auth::user()->full_name }}"/>
                 </div>
-                {{-- <div class="form-group">
+                <div class="form-group">
                     <label >Email (*)</label>
                     <input class="form-control" id="txt_billing_email"
                            name="txt_billing_email" type="text" value="{{ Auth::user()->email }}"/>
-                </div> --}}
+                </div>
                 <div class="form-group">
                     <label >Số điện thoại (*)</label>
                     <input class="form-control" id="txt_billing_mobile"
@@ -107,28 +107,6 @@
                 </div>
                 <input type="hidden" id="id_user" name="id_user" value="{{ Auth::user()->id }}">
             @endif
-                {{-- <div class="form-group">
-                    <label >Họ tên (*)</label>
-                    <input class="form-control" id="txt_billing_fullname"
-                           name="txt_billing_fullname" type="text" value="{{$fullname}}"/>
-                </div>
-                <div class="form-group">
-                    <label >Email (*)</label>
-                    <input class="form-control" id="txt_billing_email"
-                           name="txt_billing_email" type="text" value="{{$email}}"/>
-                </div>
-                <div class="form-group">
-                    <label >Số điện thoại (*)</label>
-                    <input class="form-control" id="txt_billing_mobile"
-                           name="txt_billing_mobile" type="text" value="{{$phone}}"/>
-                </div>
-                <div class="form-group">
-                    <label >Địa chỉ (*)</label>
-                    <input class="form-control" id="txt_billing_addr1"
-                           name="txt_billing_addr1" type="text" value="{{$address}}"/>
-                </div>
-                <input type="hidden" id="id_user" name="id_user" value="-1"> --}}
-            {{-- @endif --}}
             <button type="submit" class="btn btn-primary" id="btnPopup">Thanh toán Post</button>
             <button type="submit" name="redirect" id="redirect" onclick="history.back()" class="btn btn-default">Thanh toán Redirect</button>
 

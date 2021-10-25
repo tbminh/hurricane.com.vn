@@ -63,7 +63,7 @@ class HomeController extends Controller
     // Hàm xử lí đăng xuất
     public function logout(){
         Auth::logout();
-        return redirect('page-login');
+        return redirect('/');
     }
 
     //Trang đăng ký
@@ -207,7 +207,7 @@ class HomeController extends Controller
         $add_order = new Order();
         $add_order->user_id = $id_user;
         $add_order->order_status = 0;
-        $add_order->order_payment = $request->input('method');
+        $add_order->order_payment = 0;
         $add_order->save();
         //Lấy đơn hàng mới nhất
         $get_order_max = DB::table('orders')->max('id');
@@ -243,14 +243,20 @@ class HomeController extends Controller
         return redirect('page-wait-payment/'.$id_user)->with('alert','Đặt hàng thành công!!!');
    }
 
-            public function vnpay_online($total){
-                return view('home.vnpay_index')->with([
-                    'total'=>$total
-                ]);
-            }     
+   //Trang thanh toán online
+    // public function vnpay_online($total){
+    //     return view('home.vnpay_index')->with([
+    //         'total'=>$total
+    //     ]);
+    // }     
+    public function vnpay_online($total,$id_user){
+        return view('home.vnpay_index')->with([
+            'total'=>$total,
+            'id_user'=>$id_user
+        ]);
+    }     
 
-        public function create(Request $request)
-    {
+    public function create(Request $request, $id_user){
         $vnp_TmnCode = "UDOPNWS1"; //Mã website tại VNPAY
         $vnp_HashSecret = "EBAHADUGCOEWYXCMYZRMTMLSHGKNRPBN"; //Chuỗi bí mật
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -304,22 +310,56 @@ class HomeController extends Controller
         }
         
         return redirect($vnp_Url);
-
     }
 
     public function return(Request $request)
-    {
-            // $cart = Session()->get('cart');
-            // $currentDate = Carbon::now();
-            // $requiredDate = $currentDate->addDays(6);
-//        $url = session('url_prev','/');
+    {   
+        //Thực hiện thêm hóa đơn khi thanh toán thành công
         if($request->vnp_ResponseCode == "00") {
-           
-            dd($request->all());
-            // return redirect()->route('home')->with('success' ,'Đã thanh toán phí dịch vụ');
+            //Lấy id của user
+            $get_id = Auth::id();
+            //Tạo hóa đơn mới
+            $add_order = new Order();
+            $add_order->user_id = $get_id;
+            $add_order->order_status = 0;
+            $add_order->order_payment = 1;
+            $add_order->save();
+            //Lấy đơn hàng vừa mới tạo
+            $get_order_max = DB::table('orders')->max('id');
+            //Lấy giỏ hàng của user 
+            $get_carts = ShoppingCart::where('user_id',$get_id)->get();
+            //Xử lí trong hóa đơn chi tiết
+            foreach($get_carts as $get_cart){
+                //Lấy id sản phẩm để truy xuất giá sp
+                $get_prices = Product::where('id',$get_cart->product_id)->first();
+                //Thêm vào Order-Details
+                $add_detail = new OrderDetail();
+                $add_detail->order_id = $get_order_max;
+                $add_detail->product_id = $get_cart->product_id;
+                $add_detail->total_quantity = $get_cart->quantity;
+                $add_detail->total_price = ($get_cart->quantity * $get_prices->product_price);
+                $add_detail->save();
+                //Lấy số lượng giỏ hàng và sản phẩm
+                $get_qty_cart = $get_cart->quantity;
+                $get_qty = $get_prices->product_quantity;
+                //Lấy số lượng sản phẩm trừ giỏ hàng
+                if($get_prices->category_id == 1){
+                    foreach($get_prices as $get_price){
+                        $quantity = ($get_qty - $get_qty_cart);
+                        DB::table('products')->where('category_id',1)->update(['product_quantity'=> $quantity]);
+                    }
+                }else{
+                    $quantity = ($get_prices->product_quantity - $get_qty_cart);
+                    //Cập nhật lại số lượng
+                    DB::table('products')->where('id',$get_cart->product_id)->update(['product_quantity'=> $quantity]);
+                }
+                DB::table('shopping_carts')->where('user_id',$get_id)->delete();
+            }
+            return redirect('/')->with('checkouted' ,'Đã thanh toán phí dịch vụ');
+        } 
+        else{
+            return redirect()->route('checkout')->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
         }
-        // return redirect()->route('checkout')->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
-
     }
 
     //Trang thanh toán

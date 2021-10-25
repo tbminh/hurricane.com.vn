@@ -42,15 +42,16 @@
         }
 </style>
 
-<section id="test" style="margin-bottom: 30px;">
+<section id="test">
     <div class="container">
      <div class="row">
-      <div class="products_1">
-       <h2 style="color: #B06565;">Giỏ Hàng</h2>
-      </div>
+        <div class="collection_text">
+            Giỏ Hàng
+        </div>
      </div> 
     </div>
 </section>
+
     @if ($show_carts->count() > 0)
         <table class="table table-bordered" style="max-width: 60%; margin: auto; padding-bottom: 60px;">
             <thead>
@@ -77,7 +78,10 @@
                                     <img class="image-product" src="{{asset('public/home/upload_img/'.$get_products->product_img)}}" width="145" height="145" >
                                 </a>
                             </td>
-                            <td data-label="Giá">{{  number_format($get_products->product_price) }} VND/{{ $get_products->unit_price }} </td>
+                            <td data-label="Giá">
+                                {{  number_format($get_products->product_price) }} VND/{{ $get_products->unit_price }} 
+                            </td>
+
                             <td data-label="Số lượng"> 
                                 <input type="number" size="3" class="input-text qty text" name="quantity" value="{{ $show_cart->quantity }}" min="0" step="1">
                             </td>
@@ -85,9 +89,11 @@
                             <td data-label="Tổng tiền">
                                 {{ number_format($get_products->product_price * $show_cart->quantity) }} VND
                             </td>
-                            <td data-label="Tùy chọn"><input type="submit"  class="btn btn-success"  value="Cập Nhật"  name="update_cart"></td>
+                            <td data-label="Tùy chọn">
+                                <input type="submit" class="btn btn-success"  value="Cập Nhật"  name="update_cart">
+                            </td>
                             <td data-label="Tùy chọn"> 
-                                <a href="{{ url('delete-product-cart/'.$show_cart->id) }}" class="btn btn-delete"
+                                <a href="{{ url('delete-product-cart/'.$show_cart->id) }}" class="btn btn-danger"
                                     onclick="return confirm('Bạn có chắc muốn xóa không?');">
                                     <i class="fa fa-recycle" aria-hidden="true"> Xóa</i>
                                 </a>

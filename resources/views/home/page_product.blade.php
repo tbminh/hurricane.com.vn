@@ -1,7 +1,7 @@
 @extends('layout.layout')
 @section('title','Trang món ăn')
 @section('content')
-{{-- <link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
+
 <style>
     /* .container {
         width: 100%;
@@ -48,7 +48,7 @@
     }
     .product-list .content .pro .field-btn{
         font-weight: 700;
-        padding: 9px 5px;
+        /* padding: 9px 5px; */
         background: #ffd800;
         border-radius: 5px;
         display: block;
@@ -127,14 +127,13 @@
                                     <div class="field-btn">
                                         @if (Auth::check())
                                             <a href="{{ url('add-cart/'.Auth::id().'/'.$show_product->id) }}">
-                                                <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                                <i class="fa fa-shopping-cart"></i> Thêm vào giỏ 
                                             </a>
                                         @else
-                                            <a onclick="return nonlogin('Bạn cần đăng nhập trước !!')" href="{{ url('page-login') }}">
-                                                <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                            <a type="button" onclick="return nonlogin('Bạn cần đăng nhập trước !!')" href="{{ url('page-login') }}">
+                                                <i class="fa fa-shopping-cart"></i> Thêm vào giỏ 
                                             </a>
                                         @endif
-                                    
                                     </div>
                                 </div>
                             </div>   

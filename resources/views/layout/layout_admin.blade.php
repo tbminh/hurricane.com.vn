@@ -121,7 +121,6 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-
         </ul>
 
         <!-- Right navbar links -->
@@ -165,11 +164,16 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="{{ url('logout') }}"  target="_blank"  class="brand-link" style="background-color: #fff;">
-            <img src="{{ url('public/home/upload_img/logo2.png') }}" style="max-width: 100%;height:60px;"
-                 style="opacity: .8">
-            <span class="brand-text font-weight-light"></span>
-        </a>
+        <div style="padding-left: 15px;">
+            <a href="{{ url('logout') }}"  target="_blank"  class="navbar-brand" >
+                <img src="{{ url('public/home/upload_img/logo-brand.png') }}" style="max-width: 50%; height:50px;">
+           
+                <span class="brand-text font-weight-light" style="color:white; font-size:20px;">
+                    URRICANE
+                </span>
+                
+            </a>
+        </div>
 
         <!-- Sidebar -->
         <div class="sidebar">
@@ -178,7 +182,7 @@
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         {{-- <img src="#"  class="img-circle elevation-2" alt="User Image"> --}}
-                        <img src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.6435-9/124170338_1034094440438947_6161436191169840660_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=7fY_2gT9lJ8AX9YTu0h&_nc_ht=scontent.fsgn2-6.fna&oh=61c6a23e0a18532de5b1c15e6f059493&oe=61567468"  class="img-circle elevation-2" alt="User Image">
+                        <img src="public/home/upload_img/user.png"  class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="{{ url('profile-admin/'.Auth::id()) }}" class="d-block"><b>{{ Auth::user()->user_name }}</b></a>
@@ -238,7 +242,7 @@
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="fas fa-dog"></i>
+                            <i class="fa fa-cutlery"></i>
                             <p>
                                 Quản lý sản phẩm
                                 <i class="right fas fa-angle-left"></i>
@@ -258,6 +262,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{url('page-combo-product')}}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Danh sách combo</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{url('product-supplier')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Nhà cung cấp</p>
@@ -265,22 +275,37 @@
                             </li>
                         </ul>
 
-
                     </li>
-                    <li class="nav-item">
-                        <a href="{{url('admin-order')}}" class="nav-link">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-list-ol" aria-hidden="true"></i>
                             <p>
-                                Quản lý hóa đơn
+                                Quản lí hóa đơn
+                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{url('admin-order')}}" class="nav-link ">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Hóa đơn sản phẩm</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin-order')}}" class="nav-link ">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Hóa đơn đặt bàn</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+
+
                     <li class="nav-item">
-                        <a href="{{url('admin-table/0')}}" class="nav-link">
+                        <a href="{{url('table-manage/0')}}" target="_blank" class="nav-link">
                             <i class="fa fa-sliders" aria-hidden="true"></i>
-                            <p>
-                                Quản lý đặt bàn
-                            </p>
+                            <p>Quản lý đặt bàn</p>
                         </a>
                     </li>
                     <li class="nav-item has-treeview">

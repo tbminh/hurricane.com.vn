@@ -1,7 +1,7 @@
 @extends('layout.layout')
 @section('title','Trang đăng nhập')
 @section('content')
-<link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet">
+{{-- <link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
 <style>
     html,body { 
 	height: 80%; 
@@ -14,7 +14,7 @@
         justify-content: center;
         background-color: #f5f5f5;
     }
-    form{
+    /* form{
         padding-top: 10px;
         font-size: 14px;
         margin-top: 30px;
@@ -24,13 +24,13 @@
     width: 400px;
     height: 40px;
     vertical-align: middle;    
-    }
+    } */
     .card-title{ font-weight:300; }
 
-    .btn{
+    /* .btn{
         font-size: 14px;
         margin-top:20px;
-    }
+    } */
 
 
     .login-form{ 
@@ -53,7 +53,7 @@
 <div class="global-container">
 	<div class="card login-form">
 	<div class="card-body">
-		<h2 class="card-title text-center">ĐĂNG NHẬP</h2>
+		<h3 class="card-title text-center">ĐĂNG NHẬP</h3>
 		<div class="card-text">
 			<!--
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->

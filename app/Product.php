@@ -40,14 +40,8 @@ class Product extends Model
     }
 
     //San pham có một slider
-    public function slider()
-    {
-        return $this->hasOne('App\Slider');
-    }
-
-    //Sản phẩm có nhiều bình luận
-    public function comment()
-    {
-        return $this->hasMany('App\Comment');
-    }
+    // public function slider()
+    // {
+    //     return $this->hasOne('App\Slider');
+    // }
 }

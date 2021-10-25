@@ -27,8 +27,9 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>10</h3>
-                            <p>Đơn hàng</p>
+                            @php($count_order = DB::table('orders')->where('order_status',0)->count())
+                            <h3>{{ $count_order }}</h3>
+                            <p>Đơn chưa duyệt</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -41,7 +42,8 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>10<sup style="font-size: 20px"></sup></h3>
+                            @php($count_product = DB::table('products')->count())
+                            <h3>{{ $count_product }}</h3>
 
                             <p>Số sản phẩm</p>
                         </div>
@@ -56,7 +58,8 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>10</h3>
+                            @php($count_client = DB::table('users')->where('role_id',3)->count())
+                            <h3>{{ $count_client }}</h3>
 
                             <p>Số khách hàng</p>
                         </div>
@@ -71,7 +74,8 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            @php($get_total = DB::table('order_details')->sum('total_price'))
+                            <h3>{{ number_format($get_total) }}</h3>
 
                             <p>Tổng doanh thu</p>
                         </div>
@@ -108,30 +112,12 @@
                                     <th>Địa chỉ</th>
                                     <th>Trạng thái</th>
                                     <th>Phương thức thanh toán</th>
-                                    <th scope="col" colspan="2">Tùy chọn</th>
+                                    <th scope="col" colspan="3">Tùy chọn</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>test</td>
-                                        <td>
-                                            <button class="btn btn-danger btn-sm" type="button" >
-                                                <i class="fa fa-check-circle"></i> Duyệt
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-success btn-sm" href="#" role="button" >
-                                                <i class="fas fa-eye"></i> Xem
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {{-- @foreach($show_order_lastests as $key => $data)
-                                    @php($get_user = DB::table('users')->where('id',$data ->user_id)->first())
+                                    @forelse($show_order_lastests as $key => $data)
+                                        @php($get_user = DB::table('users')->where('id',$data ->user_id)->first())
                                         <tr>
                                             <td> {{ ++$key }} </td>
                                             <td>{{ '000'.$data-> id }}</td>
@@ -139,44 +125,46 @@
                                             <td>{{$get_user->full_name }}</td>
 
                                             <td>
-                                                {{ $get_user->adress }}
+                                                {{ $get_user->address }}
                                             </td>
 
                                             <td>
-                                                @if ($data->order_status == 0 )
-                                                    <b style="color:blue;"> Chờ thanh toán </b>
-                                                @elseif($data->order_status == 1)
-                                                    <b style="color:green;"> Đang giao hàng </b>
-                                                @else
-                                                    <b style="color:red;">Đã hủy</b>
-                                                @endif
+                                                <b style="color:blue;"> Chờ thanh toán </b>
                                             </td>
 
-                                            <td>{{ $data->order_amount}}</td>
-
                                             <td>
-                                                @if ($data->order_status ==2 )
-                                                    <button class="btn btn-danger btn-sm" type="button" disabled>
-                                                        <i class="fa fa-check-circle"></i> Duyệt
-                                                    </button>
-                                                @elseif($data->order_status ==1)
-                                                    <a class="btn btn-danger btn-sm" href="{{ url('cancel-order/'.$data->id) }}" role="button">
-                                                        <i class="fa fa-recycle"></i> &nbsp; Hủy
-                                                    </a>
+                                                @if ($data->order_payment == 1)
+                                                    <b style="color: #d35400;">
+                                                        <i class="fa fa-money" aria-hidden="true"></i>&nbsp; Thanh Toán Tiền Mặt 
+                                                    </b> 
                                                 @else
-                                                    <a class="btn btn-primary btn-sm" href="{{ url('approve-order/'.$data->id) }}" role="button">
-                                                        <i class="fa fa-check-circle"></i> Duyệt
-                                                    </a>
+                                                    <b style="color: #22a6b3;">
+                                                        <i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp; Thanh Toán Online 
+                                                    </b>  
                                                 @endif
                                             </td>
 
                                             <td>
-                                                <a class="btn btn-success btn-xs" href="{{ url('admin-order-detail/'.$data->id) }}" role="button" >
+                                                <a class="btn btn-primary btn-sm" href="{{ url('approve-order/'.$data->id) }}" role="button">
+                                                    <i class="fa fa-check-circle"></i> Duyệt
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm" href="{{ url('cancel-order/'.$data->id) }}" role="button" onclick="return confirm('Bạn có muốn hủy đơn hàng không ?');">
+                                                    <i class="fa fa-recycle"></i> &nbsp; Hủy
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-success btn-sm" href="{{ url('admin-order-detail/'.$data->id) }}" role="button" >
                                                     <i class="fas fa-eye"></i> Xem
                                                 </a>
                                             </td>
                                         </tr>
-                                @endforeach --}}
+                                        @empty
+                                        <div class="alert alert-danger text-center" role="alert">
+                                            <strong style="font-size: 25px;"> Không có đơn hàng</strong>
+                                        </div>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

@@ -45,6 +45,29 @@
 			text-align: center;
 		}
 	</style>
+	@if(session()->has('success'))
+		<script>
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: 'Thanh toán thành công!',
+				showConfirmButton: false,
+				timer: 2000
+			})
+		</script>
+	@endif
+	
+	@if(session()->has('delete'))
+        <script>
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Xóa thành công!',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        </script>
+    @endif
 
     <div class="container-fluid">
 		<div class="row content">
@@ -67,7 +90,8 @@
 									<th scope="col">STT</th>
 									<th scope="col">Tên sản phẩm</th>
 									<th scope="col">Số lượng</th>
-									<th scope="col">Giá bán</th>
+									<th scope="col">Hình Ảnh</th>
+									<th scope="col">Giá</th>
 									<th scope="col">Thành Tiền</th>
 									<th scope="col"></th>
 									</tr>
@@ -77,43 +101,83 @@
 										@if($id_table != 0)
 											@php($show_carts = DB::table('table_carts')->where('table_id',$id_table)->get())
 											<?php $total_price = 0; ?>
-											
 											@foreach ($show_carts as $key => $show_cart)
 												@php($get_products = DB::table('products')->where('id',$show_cart->product_id )->first())
 												<tr>
 													<td> {{ ++$key }} </td>
-													<td data-label="Tên sản phẩm">
-														<span>{{ $get_products->product_name }}</span>
-													</td>
-													<td data-label="Số lượng"> 
-														<div class="input-group spinner">
-															<a class="btn btn-default dec" data="{{ $show_cart->id  }}">
-																<i class="fa fas fa-minus"></i>
+													@if ($get_products != NULL)
+														<td data-label="Tên sản phẩm">
+															<span>{{ $get_products->product_name }}</span>
+														</td>
+														<td data-label="Số lượng"> 
+															<div class="input-group spinner">
+																<a class="btn btn-default dec" data="{{ $show_cart->id  }}">
+																	<i class="fa fas fa-minus"></i>
+																</a>
+																<input type="number" style="width: 50px; text-align: center;" class="form-control quantity-product-oders"
+																	name="inputQty" value="{{ $show_cart->tc_quantity }}" id="cartqty_{{ $show_cart->id }}"
+																	onchange="myFunction({{ $show_cart->id }} + ',' + this.value)">
+																<a class="btn btn-default inc" data="{{ $show_cart->id  }}">
+																	<i class="fa fas fa-plus"></i>
+																</a>
+															</div>
+														</td>
+														<td>
+															<img src="{{ asset('public/home/upload_img/'.$get_products->product_img) }}" class="img-circle elevation-2" width="40px" height="40px">
+														</td>
+														<td data-label="Giá">{{  number_format($get_products->product_price) }} VND/{{ $get_products->unit_price }} </td>
+														<?php 
+															$price = $get_products->product_price;
+															$qty = $show_cart->tc_quantity;
+															$total = $price * $qty;
+															$total_price = $total_price + $total;
+														?>
+														<td data-label="Thành tiền">
+															{{ number_format($total) }} VND
+														</td>
+														<td class="text-center">
+															<a href="#" class="deLete" data="{{ $show_cart->id  }}" title="Xóa" >
+																<i class="fa fa-times-circle del-pro-order"></i>
 															</a>
-															<input type="number" style="width: 50px; text-align: center;" class="form-control quantity-product-oders"
-																name="inputQty" value="{{ $show_cart->tc_quantity }}" id="cartqty_{{ $show_cart->id }}"
-																onchange="myFunction({{ $show_cart->id }} + ',' + this.value)">
-															<a class="btn btn-default inc" data="{{ $show_cart->id  }}">
-																<i class="fa fas fa-plus"></i>
+														</td>
+													@else
+														@php($get_combos = DB::table('combos')->where('id',$show_cart->combo_id )->first())
+														<td data-label="Tên combo">
+															<span>{{ $get_combos->combo_name }}</span>
+														</td>
+														<td data-label="Số lượng"> 
+															<div class="input-group spinner">
+																<a class="btn btn-default dec" data="{{ $show_cart->id  }}">
+																	<i class="fa fas fa-minus"></i>
+																</a>
+																<input type="number" style="width: 50px; text-align: center;" class="form-control quantity-product-oders"
+																	name="inputQty" value="{{ $show_cart->tc_quantity }}" id="cartqty_{{ $show_cart->id }}"
+																	onchange="myFunction({{ $show_cart->id }} + ',' + this.value)">
+																<a class="btn btn-default inc" data="{{ $show_cart->id  }}">
+																	<i class="fa fas fa-plus"></i>
+																</a>
+															</div>
+														</td>
+														<td>
+															<img src="{{ asset('public/home/upload_img/'.$get_combos->combo_img) }}" class="img-circle elevation-2" width="40px" height="40px">
+														</td>
+														<td data-label="Giá">{{  number_format($get_combos->combo_total_price) }} VND/Combo </td>
+														<?php 
+															$price = $get_combos->combo_total_price;
+															$qty = $show_cart->tc_quantity;
+															$total = $price * $qty;
+															$total_price = $total_price + $total;
+														?>
+														<td data-label="Thành tiền">
+															{{ number_format($total) }} VND
+														</td>
+														<td class="text-center">
+															<a href="#" class="deLete" data="{{ $show_cart->id  }}" title="Xóa" >
+																<i class="fa fa-times-circle del-pro-order"></i>
 															</a>
-														</div>
-													</td>
-													<td data-label="Giá">{{  number_format($get_products->product_price) }} VND/{{ $get_products->unit_price }} </td>
-													<?php 
-														$price = $get_products->product_price;
-														$qty = $show_cart->tc_quantity;
-														$total = $price * $qty;
-														$total_price = $total_price + $total;
-													?>
-													<td data-label="Thành tiền">
-														{{ number_format($total) }} VND
-													</td>
-													<td class="text-center">
-														<a href="#" class="deLete" data="{{ $show_cart->id  }}" title="Xóa" >
-															<i class="fa fa-times-circle del-pro-order"></i>
-														</a>
-													</td>
-												</tr>  
+														</td>
+													@endif
+												</tr>
 											@endforeach
 										@endif
 								</tbody>
@@ -131,13 +195,26 @@
 								<div class="row">
 									<div class="col-md-6 col-xs-6 p-1">
 										<button type="submit" class="btn-print" disabled>
-											<i class="fa fa-credit-card" aria-hidden="true"></i> Thanh Toán (F9)
+											<i class="fa fa-credit-card" aria-hidden="true"></i> Thanh Toán 
 										</button>
 									</div>
 									<div class="col-md-6 col-xs-6 p-1">
 										<button type="button" class="btn-pay" disabled>
-											<i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu (F10)
+											<i class="fa fa-floppy-o" aria-hidden="true"></i> Xóa Bàn 
 										</button>
+									</div>
+								</div>
+							@else
+								<div class="row">
+									<div class="col-md-6 col-xs-6 p-1">
+										<button type="submit" class="btn-print" >
+											<i class="fa fa-credit-card" aria-hidden="true"></i> Thanh Toán 
+										</button>
+									</div>
+									<div class="col-md-6 col-xs-6 p-1">
+										<a type="button" class="btn-pay" href="{{ url('delete-table-cart/'.$id_table) }}" >
+											<i class="fa fa-trash" aria-hidden="true"></i> Xóa Bàn
+										</a>
 									</div>
 								</div>
 							@endif

@@ -1,7 +1,6 @@
 @extends('layout.layout')
 @section('title','Trang đăng ký')
 @section('content')
-<link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet">
 <style>
     html,body { 
 	height: 100%; 
@@ -14,15 +13,15 @@
         justify-content: center;
         background-color: #f5f5f5;
     }
-    form{
+    /* form{
         padding-top: 10px;
         font-size: 15px;
         margin-top: 30px;
-    }
+    } */
 
     .card-title{ font-weight:300; }
 
-    .btn{
+    /* .btn{
         font-size: 14px;
         margin-top:20px;
     }
@@ -31,7 +30,7 @@
     .login-form{ 
         width:500px;
         margin:20px;
-    }
+    } */
 
     .sign-up{
         text-align:center;
@@ -86,7 +85,7 @@
 				<button type="submit" class="btn btn-danger btn-block">Đăng Ký</button>
 				
 				<div class="sign-up">
-					Nếu bạn chưa có tài khoản? <a href="{{ url('page-sign-up') }}">Đăng ký ngay</a>
+					Nếu bạn đã có tài khoản? <a href="{{ url('page-sign-up') }}">Nhập ký ngay</a>
 				</div>
 			</form>
 		</div>

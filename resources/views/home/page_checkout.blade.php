@@ -4,15 +4,6 @@
 @section('content')
 <link href="{{ asset('public/home/css/bootstrap.min.css') }}" rel="stylesheet">
 <style>
-    .collection_text{
-        background: url(img/crossword.png) repeat scroll 0 0 #192A56;
-        font-family: raleway;
-        font-size: 50px;
-        font-weight: 200;
-        margin: 0;
-        padding: 50px 0;color: #fff;
-        text-align: center;
-    }
     table thead tr th{
         text-align: center;
     }
@@ -32,37 +23,29 @@
     }
 </style>
 
-<section id="test" style="margin-bottom: 30px;">
-    <div class="container">
-     <div class="row">
-      <div class="products_1">
-       <h2 style="color: #B06565;">Thanh Toán</h2>
-      </div>
-     </div> 
-    </div>
-</section>
+<div class="collection_text">
+    THANH TOÁN
+</div>
 
 <div class="single-product-area">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <div id="customer_details" class="col2-set">
-                    <div class="col-1">
                         <div class="woocommerce-billing-fields"><br><br>
-                            <h3><b>INFORMATION</b> </h3>
+                            <h3><b>THÔNG TIN</b> </h3>
                             <label class="" for="billing_country">
                                 <b style="font-size: 18px">
                                     <p>Họ Tên: {{ Auth::user()->full_name }}</p>
                                     <p>Điện Thoại: {{ Auth::user()->phone }}</p>
                                     <p>Email: {{ Auth::user()->email }}</p>
                                     <p>Địa chỉ: {{ Auth::user()->address }}</p>
-                                    <a href="#" class="btn btn-danger">
+                                    <a href="{{ url('page-edit-user/'.Auth::id()) }}" class="btn btn-danger">
                                         Thay đổi thông tin
                                     </a>
                                 </b>
                             </label>
                         </div>
-                    </div>
                 </div>
             </div>
             
@@ -71,7 +54,7 @@
                     <div class="woocommerce">
                         <form action="{{ url('checkout-payment/'.Auth::id()) }}" class="checkout" method="post">
                             @csrf
-                            <h3 id="order_review_heading"><br><br><b>RECEIPT</b> </h3>
+                            <h3 id="order_review_heading"><br><br><b>Hóa Đơn</b> </h3>
                             <div id="order_review" style="position: relative;">
                                 <table class="table table-bordered">
                                     <thead>
@@ -121,21 +104,6 @@
                                     @endforeach    
                                 </table>
                                 
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h3><b>PAYMOND METHOD</b> </h3>
-                                    </div>
-                                    <div class="col-md-8" style="margin-top: 20px">
-                                        <select name="method" class="form-control" aria-label="Disabled select example" required>
-                                            <option value="">--- Chọn Phương Thức Thanh Toán ---</option>
-                                            <option value="1">Thanh toán khi nhận hàng</option>
-                                            <option value="2">Thanh Toán online</option>
-                                          </select>
-                                    </div>
-                                </div>
-                                
-                                
                                 <table class="table table-bordered" style="width:100%; margin-top: 30px;" >
                                     <tfoot>
                                         <tr class="cart-subtotal">
@@ -148,7 +116,6 @@
                                                 </span>
                                             </td>
                                         </tr>
-
                                         <tr class="shipping">
                                             <td>
                                                 <strong>Vận chuyển và xử lí</strong>
@@ -159,7 +126,6 @@
                                                     </span>
                                             </td>
                                         </tr>
-
                                         <tr class="order-total">
                                             <td>
                                                 <strong>Tổng đơn hàng</strong>
@@ -173,14 +139,19 @@
                                         <tr>
                                             <td></td>
                                             <td class="actions">
-                                                    <input type="submit" value="Đặt hàng" class="btn btn-danger" name="update_cart">
+                                                <button type="submit" value="THANH TOÁN" class="btn btn-danger btn-lg" name="update_cart">
+                                                   <i class="fa fa-check"></i> THANH TOÁN
+                                                </button>
+                                                <a href="{{url('checkout-vnpay/'.$total_price.'/'.Auth::id())}}" class="btn btn-outline-info"> 
+                                                    THANH TOÁN VNPAY <img src="{{ asset('public/home/upload_img/vnpay.png') }}" height="40" width="40">
+                                                </a>
                                             </td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                         </form>
-                        <a href="{{route('vnpay_online',$total_price)}}"> thanh toan online</a>
+                        
                     </div>
                 </div>
             </div>

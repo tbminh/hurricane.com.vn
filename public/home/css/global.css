@@ -318,7 +318,7 @@ padding:0;
 /********************* header_main_end ****************/
 /********************* header ****************/
 #header{ 
- background: #eb2f06;
+ background: #C51C0A;
  }
 #header .navbar-default .navbar-collapse{
 border-color: #e7e7e7;
@@ -442,7 +442,7 @@ padding: 10px 15px;
 #footer{  
 padding-top: 30px;
 padding-bottom: 10px;
-background-color: #eb2f06;
+background-color: #C51C0A;
  }
 #footer .form-control {
 height: 54px;

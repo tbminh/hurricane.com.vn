@@ -15,19 +15,16 @@
     table tbody tr td{
         text-align: center;
     }
-</style>
-{{--  ===============================================  --}}
-@section('content')
-
-    <style>
-        .list-group{
+    .list-group{
             display: none;
         }
         .tabbable .nav-tabs{
             display: inline-block;
             margin-bottom: 10px;
         }
-    </style>
+</style>
+{{--  ===============================================  --}}
+@section('content')
 
 <div class="maincontent-area">
     <div class="zigzag-bottom"></div>
@@ -62,7 +59,6 @@
                             </li>
 
                             <li>
-                                
                                 @if($count_ship > 0)
                                     <a href="{{ url('page-shipping/'.Auth::id()) }}">
                                         <i class="orange ace-icon fa fa-cc-mastercard bigger-120"></i>
@@ -77,10 +73,10 @@
                             </li>
 
                             <li>
-                                    <a href="{{ url('page-complete/'.Auth::id()) }}">
-                                        <i class="orange ace-icon fa fa-car bigger-120"></i>
-                                        Đã giao
-                                    </a>
+                                <a href="{{ url('page-complete/'.Auth::id()) }}">
+                                    <i class="orange ace-icon fa fa-car bigger-120"></i>
+                                    Đã giao
+                                </a>
                             </li>
 
                             <li>
@@ -90,7 +86,6 @@
                                 </a>
                             </li>
                         </ul>
-                        
 
                         <div class="tab-content no-border padding-0"><br>
                             <div id="home" class="tab-pane in active">
@@ -98,7 +93,7 @@
                                     <div class="col-xs-12 col-sm-3 center">
                                         <span class="profile-picture">
                                             <img class="editable img-responsive" alt="Avatar" id="avatar2 "
-                                            src="{{url('public/home/upload_img/'.Auth::user()->avatar)}}">
+                                            src="{{url('public/home/upload_img/'.Auth::user()->avatar)}}" width="250" height="250">
                                         </span>
 
                                         <div class="space space-4"></div>
